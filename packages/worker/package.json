@@ -1,0 +1,15 @@
+{
+  "name": "@pkg/worker",
+  "scripts": {
+    "start": "pnpm build -- --watch",
+    "build": "rollup -c"
+  },
+  "dependencies": {
+    "@ngneat/elf": "^1.0.2",
+    "rxjs": "^7.5.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^8.3.0",
+    "rollup": "^2.62.0"
+  }
+}

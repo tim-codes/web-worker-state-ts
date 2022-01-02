@@ -1,0 +1,13 @@
+{
+	"scripts": {
+		"preinstall": "npx -y only-allow pnpm",
+		"start": "pnpm start --stream --parallel --filter \"@pkg/worker\" --filter \"@pkg/app\"",
+		"worker:build": "pnpm build --filter \"@pkg/worker\"",
+		"worker:start": "pnpm start --filter \"@pkg/worker\"",
+		"app:build": "pnpm build --filter \"@pkg/app\"",
+		"app:start": "pnpm start --filter \"@pkg/app\""
+	},
+	"devDependencies": {
+		"typescript": "^4.4.2"
+	}
+}

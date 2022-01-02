@@ -1,0 +1,7 @@
+packages:
+#  - 'packages/**'
+  - 'packages/app'
+  - 'packages/worker'
+  # excludes
+  - '!**/build/**'
+  - '!**/test/**'
