@@ -1,9 +1,8 @@
 import { createState, Store, withProps } from '@ngneat/elf';
-import { wrap } from 'comlink';
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { SwRegistrationResult } from './lib/setupServiceWorker';
-import setupWebWorker, { AppWorker } from './lib/setupWebWorker';
+import { AppWorker } from './lib/setupWebWorker';
 import logo from './logo.svg';
 
 export interface AppProps {
