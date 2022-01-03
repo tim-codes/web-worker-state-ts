@@ -7,7 +7,7 @@ module.exports = {
     public: {
       url: '/',
     },
-    '../worker/dist': {
+    '../worker-web/dist': {
       url: '/',
       static: true,
     },

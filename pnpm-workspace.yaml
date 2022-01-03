@@ -1,7 +1,8 @@
 packages:
 #  - 'packages/**'
   - 'packages/app'
-  - 'packages/worker'
+  - 'packages/worker-web'
+  - 'packages/worker-service'
   # excludes
   - '!**/build/**'
   - '!**/test/**'

@@ -4,12 +4,15 @@ importers:
 
   .:
     specifiers:
+      '@testing-library/dom': ^8.11.1
       typescript: ^4.4.2
     devDependencies:
+      '@testing-library/dom': 8.11.1
       typescript: 4.5.4
 
   packages/app:
     specifiers:
+      '@testing-library/dom': ^8.11.1
       '@testing-library/jest-dom': ^5.14.1
       '@testing-library/react': ^12.0.0
       '@testing-library/user-event': ^13.2.1
@@ -24,25 +27,43 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       web-vitals: 2.1.2
     devDependencies:
+      '@testing-library/dom': 8.11.1
       '@testing-library/jest-dom': 5.16.1
       '@testing-library/react': 12.1.2_react-dom@17.0.2+react@17.0.2
-      '@testing-library/user-event': 13.5.0
+      '@testing-library/user-event': 13.5.0_@testing-library+dom@8.11.1
       '@types/react': 17.0.38
       '@types/react-dom': 17.0.11
       snowpack: 3.8.8
 
-  packages/worker:
+  packages/worker-service:
     specifiers:
       '@ngneat/elf': ^1.0.2
       '@rollup/plugin-typescript': ^8.3.0
       rollup: ^2.62.0
       rxjs: ^7.5.1
+      tslib: ^2.3.1
     dependencies:
       '@ngneat/elf': 1.0.2_typescript@4.5.4
       rxjs: 7.5.1
     devDependencies:
-      '@rollup/plugin-typescript': 8.3.0_rollup@2.62.0+typescript@4.5.4
+      '@rollup/plugin-typescript': 8.3.0_7c5ff569c0887b4f0035eb7cb6988163
       rollup: 2.62.0
+      tslib: 2.3.1
+
+  packages/worker-web:
+    specifiers:
+      '@ngneat/elf': ^1.0.2
+      '@rollup/plugin-typescript': ^8.3.0
+      rollup: ^2.62.0
+      rxjs: ^7.5.1
+      tslib: ^2.3.1
+    dependencies:
+      '@ngneat/elf': 1.0.2_typescript@4.5.4
+      rxjs: 7.5.1
+    devDependencies:
+      '@rollup/plugin-typescript': 8.3.0_7c5ff569c0887b4f0035eb7cb6988163
+      rollup: 2.62.0
+      tslib: 2.3.1
 
 packages:
 
@@ -290,7 +311,7 @@ packages:
       rollup: 2.37.1
     dev: true
 
-  /@rollup/plugin-typescript/8.3.0_rollup@2.62.0+typescript@4.5.4:
+  /@rollup/plugin-typescript/8.3.0_7c5ff569c0887b4f0035eb7cb6988163:
     resolution: {integrity: sha512-I5FpSvLbtAdwJ+naznv+B4sjXZUcIvLLceYpITAn7wAP8W0wqc5noLdGIp9HGVntNhRWXctwPYrSSFQxtl0FPA==}
     engines: {node: '>=8.0.0'}
     peerDependencies:
@@ -301,6 +322,7 @@ packages:
       '@rollup/pluginutils': 3.1.0_rollup@2.62.0
       resolve: 1.20.0
       rollup: 2.62.0
+      tslib: 2.3.1
       typescript: 4.5.4
     dev: true
 
@@ -382,13 +404,14 @@ packages:
       react-dom: 17.0.2_react@17.0.2
     dev: true
 
-  /@testing-library/user-event/13.5.0:
+  /@testing-library/user-event/13.5.0_@testing-library+dom@8.11.1:
     resolution: {integrity: sha512-5Kwtbo3Y/NowpkbRuSepbyMFkZmHgD+vPzYB/RJ4oxt5Gj/avFFBYjhw27cqSVPVw/3a67NK1PbiIr9k4Gwmdg==}
     engines: {node: '>=10', npm: '>=6'}
     peerDependencies:
       '@testing-library/dom': '>=7.21.4'
     dependencies:
       '@babel/runtime': 7.16.7
+      '@testing-library/dom': 8.11.1
     dev: true
 
   /@tootallnate/once/1.1.2:

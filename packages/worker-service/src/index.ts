@@ -1,21 +1,15 @@
-/// <reference lib="WebWorker" />
-
 export type {};
 declare const self: ServiceWorkerGlobalScope;
 
-self.addEventListener('install', (e) => {
+self.addEventListener('install', async (e) => {
   console.log('WORKER: install event in progress.');
+  await self.skipWaiting();
+  const clients = await self.clients.claim();
+  console.debug(clients);
 });
 
 self.addEventListener('activate', (e) => {
   console.log('WORKER: activate event in progress.');
-  console.log('hi4');
-});
-
-self.addEventListener('install', async (e) => {
-  await self.skipWaiting();
-  const clients = await self.clients.claim();
-  clients
 });
 
 self.addEventListener('message', (p: { data: any }) => {
