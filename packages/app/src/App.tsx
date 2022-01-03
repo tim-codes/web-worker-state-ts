@@ -1,31 +1,15 @@
-import { createState, Store, withProps } from '@ngneat/elf';
+import { select } from '@ngneat/elf';
+import { useObservable } from '@ngneat/use-observable';
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { SwRegistrationResult } from './lib/setupServiceWorker';
-import { AppWorker } from './lib/setupWebWorker';
+import AppWorker from './lib/setupWebWorker';
 import logo from './logo.svg';
 
 export interface AppProps {
   sw?: SwRegistrationResult;
   ww: AppWorker;
 }
-
-interface StoreProps {
-  count: number;
-}
-
-const {
-  state: viewState,
-  config: viewConfig,
-} = createState(
-  withProps<StoreProps>({ count: 0 }),
-);
-
-const viewStore = new Store({
-  name: 'view',
-  state: viewState,
-  config: viewConfig,
-});
 
 function App({ sw, ww }: AppProps) {
   //. Service Worker (sw)
@@ -51,7 +35,7 @@ function App({ sw, ww }: AppProps) {
 
   //. Web Worker (ww)
   const [wwMessage, setWwMessage] = useState<any>(null);
-  const [count, setCount] = useState(0);
+  const [count] = useObservable(ww.view.pipe(select((state) => state.count)));
 
   function onWwMessage(data: any) {
     console.debug('[APP] ww message received ->', data);
@@ -60,7 +44,7 @@ function App({ sw, ww }: AppProps) {
 
   useEffect(() => {
     ww.subscribe(onWwMessage);
-    ww.setupStateLink('count', setCount);
+    ww.setupStateLink('count');
   }, []);
 
   function pingWebWorker() {

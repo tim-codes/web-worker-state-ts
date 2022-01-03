@@ -17,7 +17,7 @@ export const setupServiceWorker: SetupServiceWorker = async () => {
   const swFile = '/service-worker.min.js';
   console.debug('[APP] registering service worker:', swFile);
   const registration = await navigator.serviceWorker.register(swFile);
-  console.debug('[APP] service worker registered');
+  console.info('[APP] service worker registered');
 
   // console.debug(registration);
   return {

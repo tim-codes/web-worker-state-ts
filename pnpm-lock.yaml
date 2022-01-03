@@ -13,20 +13,20 @@ importers:
   packages/app:
     specifiers:
       '@ngneat/elf': ^1.0.2
+      '@ngneat/use-observable': ^1.0.0
       '@testing-library/dom': ^8.11.1
       '@testing-library/jest-dom': ^5.14.1
       '@testing-library/react': ^12.0.0
       '@testing-library/user-event': ^13.2.1
       '@types/react': ^17.0.20
       '@types/react-dom': ^17.0.9
-      comlink: ^4.3.1
       react: ^17.0.2
       react-dom: ^17.0.2
       snowpack: ^3.3.7
       web-vitals: ^2.1.0
     dependencies:
       '@ngneat/elf': 1.0.2_typescript@4.5.4
-      comlink: 4.3.1
+      '@ngneat/use-observable': 1.0.0
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       web-vitals: 2.1.2
@@ -125,6 +125,10 @@ packages:
       typescript: '>= 4.1.2'
     dependencies:
       typescript: 4.5.4
+    dev: false
+
+  /@ngneat/use-observable/1.0.0:
+    resolution: {integrity: sha512-r8AwH3hI5zNI/nV1/X6XzCfmVQ0NPF+WDRbc6xQ0ZVhwsbaMPYsiKxr7wEDzWUMIN5iIMsScBs2g7oQRL0Xg3A==}
     dev: false
 
   /@npmcli/arborist/2.10.0:

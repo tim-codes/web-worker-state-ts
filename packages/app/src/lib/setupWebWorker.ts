@@ -1,8 +1,29 @@
+import { createState, Store, withProps } from '@ngneat/elf';
 import { StoreProps } from '../../../worker-web/src/lib/store';
 
-export class AppWorker extends Worker {
+interface StoreProps {
+  count: number;
+}
+
+function setupViewStore() {
+  const {
+    state: viewState,
+    config: viewConfig,
+  } = createState(
+    withProps<StoreProps>({ count: 0 }),
+  );
+
+  return new Store({
+    name: 'view',
+    state: viewState,
+    config: viewConfig,
+  });
+}
+
+export default class AppWorker extends Worker {
   cb?: (p: any) => void;
   stateLinks = new Map<string, (s: any) => any>();
+  view = setupViewStore();
 
   constructor(url: string) {
     super(url);
@@ -41,7 +62,17 @@ export class AppWorker extends Worker {
     })
   }
 
-  setupStateLink(key: keyof StoreProps, cb: (s: any) => void) {
+  private getDefaultLink = (key: keyof StoreProps) => (value: any) => {
+    this.view.update((state) => ({
+      ...state,
+      [key]: value,
+    }));
+  }
+
+  setupStateLink(
+    key: keyof StoreProps,
+    cb: (s: any) => void = this.getDefaultLink(key),
+  ) {
     console.info('[APP] registering state link ->', key);
     this.stateLinks.set(key, cb);
     this.send({
@@ -66,14 +97,3 @@ export class AppWorker extends Worker {
     });
   }
 }
-
-type SetupWebWorker = (cb: (m: MessageEvent) => void) => AppWorker;
-
-const setupWebWorker: SetupWebWorker = (cb) => {
-  const ww = new AppWorker('/web-worker.min.js');
-  console.info('[APP] web worker registered');
-
-  return ww;
-};
-
-export default setupWebWorker;

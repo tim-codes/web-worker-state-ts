@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App, { AppProps } from './App';
 import './index.css';
-import { setupServiceWorker, SwMessage } from './lib/setupServiceWorker';
-import { AppWorker } from './lib/setupWebWorker';
+import { setupServiceWorker } from './lib/setupServiceWorker';
+import AppWorker from './lib/setupWebWorker';
 import reportWebVitals from './reportWebVitals';
 
 function renderApp(props: AppProps) {
