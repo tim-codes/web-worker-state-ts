@@ -1,8 +1,15 @@
 import { Store, createState, withProps } from '@ngneat/elf';
 
-const { state, config } = createState(
-  withProps({}),
-);
+export interface StoreProps {
+  count: number;
+}
 
-const store = new Store({ state, name: 'main', config });
+export default function setupStore() {
+  const { state, config } = createState(
+    withProps<StoreProps>({ count: 0 }),
+  );
 
+  const store = new Store({ state, name: 'main', config });
+
+  return store;
+}

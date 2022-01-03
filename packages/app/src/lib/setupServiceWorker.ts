@@ -14,12 +14,12 @@ export const setupServiceWorker: SetupServiceWorker = async () => {
   console.assert('serviceWorker' in navigator, 'service worker not enabled');
   console.assert('controller' in navigator.serviceWorker, 'service worker controller not available');
 
-  const swFile = '/worker.min.js';
-  console.debug('registering service worker:', swFile);
+  const swFile = '/service-worker.min.js';
+  console.debug('[APP] registering service worker:', swFile);
   const registration = await navigator.serviceWorker.register(swFile);
-  console.debug('service worker registered');
+  console.debug('[APP] service worker registered');
 
-  console.debug(registration);
+  // console.debug(registration);
   return {
     state: registration.active?.state,
     scope: registration.scope,

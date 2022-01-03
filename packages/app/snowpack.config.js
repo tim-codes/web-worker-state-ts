@@ -7,6 +7,10 @@ module.exports = {
     public: {
       url: '/',
     },
+    '../worker-service/dist': {
+      url: '/',
+      static: true,
+    },
     '../worker-web/dist': {
       url: '/',
       static: true,

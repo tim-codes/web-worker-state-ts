@@ -12,17 +12,21 @@ importers:
 
   packages/app:
     specifiers:
+      '@ngneat/elf': ^1.0.2
       '@testing-library/dom': ^8.11.1
       '@testing-library/jest-dom': ^5.14.1
       '@testing-library/react': ^12.0.0
       '@testing-library/user-event': ^13.2.1
       '@types/react': ^17.0.20
       '@types/react-dom': ^17.0.9
+      comlink: ^4.3.1
       react: ^17.0.2
       react-dom: ^17.0.2
       snowpack: ^3.3.7
       web-vitals: ^2.1.0
     dependencies:
+      '@ngneat/elf': 1.0.2_typescript@4.5.4
+      comlink: 4.3.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       web-vitals: 2.1.2
@@ -37,15 +41,12 @@ importers:
 
   packages/worker-service:
     specifiers:
-      '@ngneat/elf': ^1.0.2
+      '@rollup/plugin-node-resolve': ^13.1.2
       '@rollup/plugin-typescript': ^8.3.0
       rollup: ^2.62.0
-      rxjs: ^7.5.1
       tslib: ^2.3.1
-    dependencies:
-      '@ngneat/elf': 1.0.2_typescript@4.5.4
-      rxjs: 7.5.1
     devDependencies:
+      '@rollup/plugin-node-resolve': 13.1.2_rollup@2.62.0
       '@rollup/plugin-typescript': 8.3.0_7c5ff569c0887b4f0035eb7cb6988163
       rollup: 2.62.0
       tslib: 2.3.1
@@ -53,14 +54,18 @@ importers:
   packages/worker-web:
     specifiers:
       '@ngneat/elf': ^1.0.2
+      '@rollup/plugin-node-resolve': ^13.1.2
       '@rollup/plugin-typescript': ^8.3.0
+      comlink: ^4.3.1
       rollup: ^2.62.0
       rxjs: ^7.5.1
       tslib: ^2.3.1
     dependencies:
       '@ngneat/elf': 1.0.2_typescript@4.5.4
+      comlink: 4.3.1
       rxjs: 7.5.1
     devDependencies:
+      '@rollup/plugin-node-resolve': 13.1.2_rollup@2.62.0
       '@rollup/plugin-typescript': 8.3.0_7c5ff569c0887b4f0035eb7cb6988163
       rollup: 2.62.0
       tslib: 2.3.1
@@ -299,6 +304,21 @@ packages:
       is-module: 1.0.0
       resolve: 1.20.0
       rollup: 2.37.1
+    dev: true
+
+  /@rollup/plugin-node-resolve/13.1.2_rollup@2.62.0:
+    resolution: {integrity: sha512-xyqbuf1vyOPC60jEKhx3DBHunymnCJswzjNTKfX4Jz7zCPar1UqbRZCNY1u5QaXh97beaFTWdoUUWiV4qX8o/g==}
+    engines: {node: '>= 10.0.0'}
+    peerDependencies:
+      rollup: ^2.42.0
+    dependencies:
+      '@rollup/pluginutils': 3.1.0_rollup@2.62.0
+      '@types/resolve': 1.17.1
+      builtin-modules: 3.2.0
+      deepmerge: 4.2.2
+      is-module: 1.0.0
+      resolve: 1.20.0
+      rollup: 2.62.0
     dev: true
 
   /@rollup/plugin-replace/2.4.2_rollup@2.37.1:
@@ -926,6 +946,10 @@ packages:
     dependencies:
       delayed-stream: 1.0.0
     dev: true
+
+  /comlink/4.3.1:
+    resolution: {integrity: sha512-+YbhUdNrpBZggBAHWcgQMLPLH1KDF3wJpeqrCKieWQ8RL7atmgsgTQko1XEBK6PsecfopWNntopJ+ByYG1lRaA==}
+    dev: false
 
   /common-ancestor-path/1.0.1:
     resolution: {integrity: sha512-L3sHRo1pXXEqX8VU28kfgUY+YGsk09hPqZiZmLacNib6XNTCM8ubYeT7ryXQw8asB1sKgcU5lkB7ONug08aB8w==}

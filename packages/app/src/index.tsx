@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App, { AppProps } from './App';
 import './index.css';
 import { setupServiceWorker, SwMessage } from './lib/setupServiceWorker';
+import { AppWorker } from './lib/setupWebWorker';
 import reportWebVitals from './reportWebVitals';
 
 function renderApp(props: AppProps) {
@@ -19,10 +20,12 @@ function renderApp(props: AppProps) {
   reportWebVitals();
 }
 
+const ww = new AppWorker('/web-worker.min.js');
+
 setupServiceWorker().then((sw) => {
   console.debug(sw);
-  renderApp({ sw });
+  renderApp({ sw, ww });
 }).catch((err) => {
   console.error(err);
-  renderApp({});
+  renderApp({ ww });
 });

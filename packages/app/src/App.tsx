@@ -1,49 +1,121 @@
-import React, { useEffect } from 'react';
-import { setupServiceWorker, SwRegistrationResult } from './lib/setupServiceWorker';
-import setupWebWorker from './lib/setupWebWorker';
-import logo from './logo.svg';
+import { createState, Store, withProps } from '@ngneat/elf';
+import { wrap } from 'comlink';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import { SwRegistrationResult } from './lib/setupServiceWorker';
+import setupWebWorker, { AppWorker } from './lib/setupWebWorker';
+import logo from './logo.svg';
 
 export interface AppProps {
+  sw?: SwRegistrationResult;
+  ww: AppWorker;
 }
 
-function App({ sw }: AppProps) {
-  //. Service Worker
-  const onSwMessage = (m: any) => {
-    console.debug('APP: sw message received ->', m);
-  };
+interface StoreProps {
+  count: number;
+}
 
-  sw.registerCallback(onSwMessage);
+const {
+  state: viewState,
+  config: viewConfig,
+} = createState(
+  withProps<StoreProps>({ count: 0 }),
+);
 
-  function pingServiceWorker() {
-    sw.postMessage('test sw message');
+const viewStore = new Store({
+  name: 'view',
+  state: viewState,
+  config: viewConfig,
+});
+
+function App({ sw, ww }: AppProps) {
+  //. Service Worker (sw)
+  function onSwMessage(m: any) {
+    console.debug('[APP] sw message received ->', m);
   }
 
-  //. Web Worker
-  const onWwMessage = (m: MessageEvent) => {
-    console.debug('APP: ww message received ->', m.data);
-  };
+  sw?.registerCallback(onSwMessage);
 
-  const ww = setupWebWorker(onWwMessage);
+  function pingServiceWorker() {
+    sw?.postMessage('test sw message');
+  }
+
+  //. Web Worker (comlink version)
+  /*useEffect(async () => {
+    const ww = wrap(new Worker('/web-worker.min.js'));
+    ww.test.then(console.log);
+    console.debug('subscribing to store');
+    await ww.subscribe((state) => {
+      console.log('state ->', state);
+    });
+  }, []);*/
+
+  //. Web Worker (ww)
+  const [wwMessage, setWwMessage] = useState<any>(null);
+  const [count, setCount] = useState(0);
+
+  function onWwMessage(data: any) {
+    console.debug('[APP] ww message received ->', data);
+    setWwMessage(data);
+  }
+
+  useEffect(() => {
+    ww.subscribe(onWwMessage);
+    ww.setupStateLink('count', setCount);
+  }, []);
 
   function pingWebWorker() {
-    ww.postMessage('test ww message');
+    ww.send({ ping: 'hello' });
+  }
+
+  function incrementCount() {
+    ww.dispatch('count', count + 1);
+  }
+  function decrementCount() {
+    ww.dispatch('count', count - 1);
+  }
+  function clearCount() {
+    ww.dispatch('count', 0);
   }
 
   return (
     <div className="App">
+
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo"/>
         <p>
           Doing some testing.
         </p>
-        <button onClick={pingServiceWorker}>
+      </header>
+
+      <h2>Ping workers</h2>
+      <section>
+        <button onClick={pingServiceWorker} disabled>
           Ping Service Worker
         </button>
         <button onClick={pingWebWorker}>
           Ping Web Worker
         </button>
-      </header>
+        <p>Last WW Message:</p>
+        {wwMessage && (<code>{JSON.stringify(wwMessage)}</code>)}
+      </section>
+
+      <h2>Counter App</h2>
+      <section>
+        <div style={{ marginBottom: '1em' }}>
+          <span style={{ marginRight: '1.5em' }}>Count</span>
+          <span>{count}</span>
+        </div>
+        <button onClick={incrementCount}>
+          Increment count
+        </button>
+        <button onClick={decrementCount}>
+          Decrement count
+        </button>
+        <button onClick={clearCount}>
+          Clear count
+        </button>
+      </section>
     </div>
   );
 }
