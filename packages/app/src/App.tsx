@@ -67,11 +67,11 @@ function App({ sw, ww }: AppProps) {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo"/>
         <p>
-          Doing some testing.
+          Web Worker State Machine
         </p>
       </header>
 
-      <h2>Ping workers</h2>
+      <h2>Ping Workers</h2>
       <section>
         <button onClick={pingServiceWorker} disabled>
           Ping Service Worker

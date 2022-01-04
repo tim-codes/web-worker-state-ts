@@ -1,7 +1,6 @@
 import { createState, Store, withProps } from '@ngneat/elf';
-import { StoreProps } from '../../../worker-web/src/lib/store';
 
-interface StoreProps {
+interface ViewStoreProps {
   count: number;
 }
 
@@ -10,7 +9,7 @@ function setupViewStore() {
     state: viewState,
     config: viewConfig,
   } = createState(
-    withProps<StoreProps>({ count: 0 }),
+    withProps<ViewStoreProps>({ count: 0 }),
   );
 
   return new Store({
@@ -46,7 +45,6 @@ export default class AppWorker extends Worker {
     }
 
     // else emit other messages to main handler
-    console.debug(data);
     if (this.cb) {
       this.cb(data);
     }
@@ -62,7 +60,7 @@ export default class AppWorker extends Worker {
     })
   }
 
-  private getDefaultLink = (key: keyof StoreProps) => (value: any) => {
+  private getDefaultLink = (key: keyof ViewStoreProps) => (value: any) => {
     this.view.update((state) => ({
       ...state,
       [key]: value,
@@ -70,11 +68,11 @@ export default class AppWorker extends Worker {
   }
 
   setupStateLink(
-    key: keyof StoreProps,
-    cb: (s: any) => void = this.getDefaultLink(key),
+    key: keyof ViewStoreProps,
+    link: (s: any) => void = this.getDefaultLink(key),
   ) {
     console.info('[APP] registering state link ->', key);
-    this.stateLinks.set(key, cb);
+    this.stateLinks.set(key, link);
     this.send({
       action: {
         type: 'SETUP_SUBSCRIPTION',
