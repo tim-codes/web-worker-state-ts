@@ -17,6 +17,7 @@ module.exports = {
     },
   },
   optimize: {
-    bundle: true,
+    // todo: fix bundling
+    bundle: false,
   }
 };

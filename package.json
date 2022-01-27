@@ -6,7 +6,9 @@
 		"worker:start": "pnpm start --filter \"@pkg/worker-*\"",
 		"app:build": "pnpm build --filter \"@pkg/app\"",
 		"app:start": "pnpm start --filter \"@pkg/app\"",
-		"bundle": "pnpm build --parallel"
+		"bundle": "pnpm build --parallel --filter \"@pkg/worker-web\" --filter \"@pkg/worker-service\" && pnpm app:build",
+		"clean": "rm -rf packages/app/build && rm -rf packages/worker-*/dist",
+		"serve": "npx serve packages/app/build"
 	},
 	"devDependencies": {
 		"@testing-library/dom": "^8.11.1",
