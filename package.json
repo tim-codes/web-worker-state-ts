@@ -6,7 +6,7 @@
 		"worker:start": "pnpm start --filter \"@pkg/worker-*\"",
 		"app:build": "pnpm build --filter \"@pkg/app\"",
 		"app:start": "pnpm start --filter \"@pkg/app\"",
-		"bundle": "pnpm build --parallel --filter \"@pkg/worker-*\" --filter \"@pkg/app\""
+		"bundle": "pnpm build --parallel"
 	},
 	"devDependencies": {
 		"@testing-library/dom": "^8.11.1",

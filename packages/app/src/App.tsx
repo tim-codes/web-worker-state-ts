@@ -23,16 +23,6 @@ function App({ sw, ww }: AppProps) {
     sw?.postMessage('test sw message');
   }
 
-  //. Web Worker (comlink version)
-  /*useEffect(async () => {
-    const ww = wrap(new Worker('/web-worker.min.js'));
-    ww.test.then(console.log);
-    console.debug('subscribing to store');
-    await ww.subscribe((state) => {
-      console.log('state ->', state);
-    });
-  }, []);*/
-
   //. Web Worker (ww)
   const [wwMessage, setWwMessage] = useState<any>(null);
   const [count] = useObservable(ww.view.pipe(select((state) => state.count)));
